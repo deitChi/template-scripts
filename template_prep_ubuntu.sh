@@ -4,8 +4,10 @@
 # https://medium.com/@dsykes012/making-a-custom-ubuntu-20-04-lts-focal-fossa-vm-template-that-works-with-cloud-init-2cfffb6783b4
 
 # Ensure Root
-
-# to be added
+if [[ "$EUID" -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
 
 # Update
 apt update && apt upgrade -y && apt autoremove -y && apt clean
