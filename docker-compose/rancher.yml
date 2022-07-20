@@ -1,0 +1,16 @@
+version: "3.2"
+services:
+  rancher:
+    container_name: rancher
+    image: rancher/rancher:latest
+    restart: unless-stopped
+    environment:
+      - CATTLE_BOOTSTRAP_PASSWORD=password
+      #command:
+      #  - "--no-cacerts"
+    privileged: true
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./data:/var/lib/rancher
