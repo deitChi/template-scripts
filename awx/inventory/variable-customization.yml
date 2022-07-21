@@ -1,0 +1,36 @@
+---
+plugin: community.vmware.vmware_vm_inventory
+hostnames:
+- 'config.name'
+properties:
+- name
+- network
+- overallStatus
+- value
+- capability
+- config
+- guest
+- runtime
+- summary
+with_nested_properties: true
+with_tags: true
+keyed_groups:
+- key: tags
+  prefix: "vm_tag_"
+  separator: ""
+- key: config.guestId
+  prefix: ''
+  separator: ''
+- key: summary.runtime.powerState
+  prefix: ''
+  separator: ''
+- key: guest.net[0].network
+  prefix: ''
+  separator: ''
+filters:
+- summary.runtime.powerState == 'poweredOn'
+- guest.ipAddress != None
+- guest.guestFamily != 'windowsGuest'
+- guest.net[0].network != 'DPG VMWARE INTERNAL'
+#- "'172.10.30' in ansible_host"
+#- "'DPG SLAN' in guest.net[0].network"
